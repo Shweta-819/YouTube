@@ -1,12 +1,12 @@
 import React from 'react'
 import ButtonList from './ButtonList';
-import VideoCOntainer from './VideoCOntainer';
+import VideoContainer from './VideoContainer';
 
 const MainContainer = () => {
   return (
-    <div>
+    <div className='flex flex-wrap'>
      <ButtonList></ButtonList>
-     <VideoCOntainer></VideoCOntainer>
+     <VideoContainer></VideoContainer>
     </div>
   )
 }
