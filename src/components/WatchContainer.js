@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 const WatchContainer = () => {
 
     const dispatch = useDispatch();
-    const [searchParams] = useSearchParams();
+    const [searchParams] = useSearchParams([]);
     console.log(searchParams.get("v"))
 
     useEffect(()=>{
