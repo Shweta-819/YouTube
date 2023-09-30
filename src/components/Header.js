@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {toggleMenu} from '../utils/appSlice';
-import axios from 'axios';
-import { YOUTUBE_SEARCH_DATA } from '../constants';
-// import { YOUTUBE_SEARCH_DATA } from '../constants';
+// import axios from 'axios';
 
 const Header = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const getSearchData = async () => {
-        const data = await fetch("https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=iphone", {mode: "no-cors"});
-        const json = await data.json();
-        console.log(json, 'ddd')
-       
-    };
-    getSearchData();
+      console.log("API CALL " ,searchQuery)
+      const data = await fetch(`https://cors-anywhere.herokuapp.com/https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${searchQuery}`);
+      const json = await data.json();
+      console.log(json, 'ddd')
+     
+  };
+
+
     useEffect(()=>{
-        console.log(searchQuery, 'gg')
-        getSearchData();
+
+       const timer= setTimeout(()=>{
+          getSearchData();
+        }, 200)
+
+        return() =>{
+          clearTimeout(timer)
+        }
+       
     }, [searchQuery])
 
+  
     const dispatch = useDispatch();
 
     const toggleSideBar = (()=>{
@@ -35,9 +43,20 @@ const Header = () => {
     <img  className="h-7" src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="logo"></img>
    </div>
    <div className='col-span-4'>
-
-    <input type="text" placeholder='Search' className='w-3/4 border border-gray-400 rounded-l-full p-2' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}></input>
+<div>
+<input type="text" placeholder='Search' className='w-3/4 border border-gray-400 rounded-l-full p-2' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}></input>
     <button className='border border-gray-400 rounded-r-full px-5 py-2 bg-gray-100'>🔍</button>
+</div>
+
+<div className='fixed bg-white w-[42rem] shadow-lg rounded-lg p-2 mx-1'>
+<ul>
+
+
+<li className='py-2 px-3 hover:bg-gray-100'> 🔍 Iphone</li>
+
+
+</ul></div>
+   
    </div>
    <div className='col-span-1'>
     <img  className="h-8" src="https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg" alt="user"></img>
